@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Image\call.png" />
+    <None Remove="Image\doctor_icon.png" />
+    <None Remove="Image\health.png" />
+    <None Remove="Image\menuwhite.png" />
+    <None Remove="Image\notebookGreen.png" />
+    <None Remove="Image\noteCancel.png" />
+    <None Remove="Image\out.png" />
+    <None Remove="Image\pencil.png" />
+    <None Remove="Image\power_off.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="8.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Image\call.png" />
+    <Resource Include="Image\doctor_icon.png" />
+    <Resource Include="Image\health.png" />
+    <Resource Include="Image\menuwhite.png" />
+    <Resource Include="Image\notebookGreen.png" />
+    <Resource Include="Image\noteCancel.png" />
+    <Resource Include="Image\out.png" />
+    <Resource Include="Image\pencil.png" />
+    <Resource Include="Image\power_off.png" />
+  </ItemGroup>
+
+</Project>
