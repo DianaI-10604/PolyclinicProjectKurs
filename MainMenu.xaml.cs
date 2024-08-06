@@ -27,14 +27,12 @@ namespace PolyclinicProjectKurs
         {
             InitializeComponent();
         }
-
         public MainMenu(User user)
         {
             InitializeComponent();
             _user = user;
             DataContext = _user;
         }
-
         private void CallDoctor_ButtonClick(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = Window.GetWindow(this) as MainWindow;

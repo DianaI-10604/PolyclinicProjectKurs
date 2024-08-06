@@ -26,7 +26,7 @@ namespace PolyclinicProjectKurs
             string firstName = FirstNameTextBox.Text;
             string patronymic = PatronymicTextBox.Text;
             string phone = PhoneTextBox.Text;
-            DateTime selectedDate = AppointmentDatePicker.SelectedDate.HasValue ? AppointmentDatePicker.SelectedDate.Value : DateTime.MinValue;
+            DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
 
             using (var context = new PolycCursContext())
             {
@@ -36,7 +36,7 @@ namespace PolyclinicProjectKurs
                 // Поиск записей без авторизации
                 var appointmentsWithoutAuth = context.DoctorAppointmentsWithoutAuthorization
                     .Include(a => a.Doctor)
-                    .Where(a => a.LastName == lastName && a.FirstName == firstName && a.Patronymic == patronymic && a.Phone == phone && a.AppointmentDate == DateOnly.FromDateTime(selectedDate))
+                    .Where(a => a.LastName == lastName && a.FirstName == firstName && a.Patronymic == patronymic && a.Phone == phone && a.AppointmentDate >= currentDate)
                     .ToList();
 
                 if (appointmentsWithoutAuth.Count > 0)
@@ -57,7 +57,7 @@ namespace PolyclinicProjectKurs
                 }
 
                 // Поиск пользователя в таблице Users
-                 user = context.Users
+                user = context.Users
                     .FirstOrDefault(u => u.Usersurname == lastName &&
                                          u.Username == firstName &&
                                          u.Userpatronymicname == patronymic &&
@@ -68,7 +68,7 @@ namespace PolyclinicProjectKurs
                     // Поиск всех записей в Appointments по UserId и указанной дате
                     var appointmentsWithAuth = context.Appointments
                         .Include(a => a.Doctor)  // Включаем связанного доктора
-                        .Where(a => a.UserId == user.UserId && a.Appointmenttime == DateOnly.FromDateTime(selectedDate))
+                        .Where(a => a.UserId == user.UserId && a.Appointmenttime >= currentDate)
                         .ToList();
 
                     foreach (var appointment in appointmentsWithAuth)
@@ -124,6 +124,11 @@ namespace PolyclinicProjectKurs
             {
                 using (var context = new PolycCursContext())
                 {
+                    // Удаление связанных записей из Medicalrecords
+                    var relatedMedicalRecords = context.Medicalrecords.Where(m => m.AppointmentId == appointment.Id).ToList();
+                    context.Medicalrecords.RemoveRange(relatedMedicalRecords);
+
+                    // Удаление записи из Appointments
                     context.Appointments.Remove(appointment);
                     context.SaveChanges();
                     AppointmentsListBox.Items.Remove(item);

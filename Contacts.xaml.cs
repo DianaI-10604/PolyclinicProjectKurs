@@ -27,6 +27,9 @@ namespace PolyclinicProjectKurs
         public string Type { get; set; } = "Поликлиника для взрослых";
         public string Zaved { get; set; } = "Нестерова Елена Николаевна\nТел.: 241-33-70\nEmail: p49_op33@zdrav.spb.ru";
         public string ZavedTerap { get; set; } = "Ежова Ольга Валентиновна\nТел.: 241-33-67";
+        public string Proezd { get; set; } = "До поликлиники №33 можно доехать от станции метро " +
+            "«Черная речка» или «Старая деревня» автобусом №211 или маршрутным такси N132, 133," +
+            " 405 (выход на остановке «Улица Оскаленко»).";
 
         private User _user;
         public Contacts(User user)

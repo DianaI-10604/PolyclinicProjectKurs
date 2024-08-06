@@ -40,11 +40,11 @@
                         <TextBlock Text="Номер телефона" Foreground="White" Margin="10" FontSize="20"/>
                         <TextBox Width="300" Height="30" Margin="20 0 0 0" BorderBrush="White" FontSize="18" Name="PhoneTextBox" Background="Transparent" Foreground="White"/>
                     </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
+                    
+                    <!--<StackPanel Orientation="Horizontal">
                         <TextBlock Text="Дата записи" Foreground="White" Margin="10" FontSize="20"/>
                         <DatePicker Width="300" Height="30" Margin="20 0 0 0" BorderBrush="White" FontSize="18" Name="AppointmentDatePicker" Background="Transparent" Foreground="White"/>
-                    </StackPanel>
+                    </StackPanel>-->
 
                     <Button Margin="10 20 0 0" Content="Найти запись" Background="#18bc84" FontSize="20" Foreground="White"
                         FontWeight="ExtraBold" Width="300" HorizontalAlignment="Left" Height="40" Click="FindAppointmentButton_Click"/>

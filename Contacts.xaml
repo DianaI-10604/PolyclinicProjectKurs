@@ -36,6 +36,9 @@
 
                         <TextBlock Text="Заведующая терапевтическим отделением: " Style="{StaticResource TextBlockInfo}" FontSize="17" HorizontalAlignment="Left"/>
                         <TextBlock Text="{Binding ZavedTerap}" Style="{StaticResource TextBlockInfo}" FontSize="14" Margin="10 0 0 10" HorizontalAlignment="Left"/>
+
+                        <TextBlock Text="Проезд: " Style="{StaticResource TextBlockInfo}" FontSize="17" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding Proezd}" Style="{StaticResource TextBlockInfo}" FontSize="14" Margin="10 0 0 10" HorizontalAlignment="Left"/>
                     </WrapPanel>
                 </StackPanel>
                 
