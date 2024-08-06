@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PolyclinicProjectKurs.Context;
 using PolyclinicProjectKurs.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PolyclinicProjectKurs
 {
@@ -100,5 +101,10 @@ namespace PolyclinicProjectKurs
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private void Back_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
+            mainWindow.ContentControlPage.Content = new DoctorAppointment(_user);
+        }
     }
 }

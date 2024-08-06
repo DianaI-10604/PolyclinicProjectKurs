@@ -19,6 +19,8 @@ public partial class Medicalrecord
 
     public string? Diagnosis { get; set; }
 
+    public string? Complaints { get; set; }
+
     public virtual Appointment? Appointment { get; set; }
 
     public virtual Doctor? Doctor { get; set; }

@@ -37,6 +37,10 @@
                                         <TextBlock Text="{Binding Doctor.Doctorname}" Style="{StaticResource TextBlockInfo}"/>
                                     </StackPanel>
 
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Жалобы: " Style="{StaticResource TextBlockInfo}"/>
+                                        <TextBlock Text="{Binding Complaints}" Style="{StaticResource TextBlockInfo}"/>
+                                    </StackPanel>
 
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="Диагноз: " Style="{StaticResource TextBlockInfo}"/>

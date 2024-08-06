@@ -5,12 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PolyclinicProjectKurs"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="700">
+             d:DesignHeight="400" d:DesignWidth="700">
     <Border Background="#18181f">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="16*"/>
-                    <RowDefinition Height="120*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="110*"/>
                     <RowDefinition Height="89*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -57,16 +57,29 @@
                   Orientation="Horizontal" Height="150">
 
                     <!--Квадратики-->
-                    <Border CornerRadius="20" Width="150" Height="140" Margin="20 0 0 0" Background="#b632cd"
-                  HorizontalAlignment="Left">
-
+                <Button Margin="20 0 0 0 " Background="Transparent" BorderBrush="Transparent" Click="ContactsInfo_ButtonClick">
+                    <Border CornerRadius="20" Width="150" Height="140" Margin="0 0 0 0" Background="#b632cd"
+                           HorizontalAlignment="Left">
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <Image Source="/Image/icon_contact_black.png" Width="40" Height="40" Margin="0 0 0 0"/>
+                            <TextBlock Text="Контакты" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource TextBlockInfo}"
+                                        FontSize="20" Foreground="Black"/>
+                        </StackPanel>
                     </Border>
+                </Button>
 
-                    <Border CornerRadius="20" Width="150" Height="140" Margin="20 0 0 0" Background="#6055ed"
-                  HorizontalAlignment="Left">
+
+                <Button Margin="20 0 0 0 " Background="Transparent" BorderBrush="Transparent" Click="DoctorsList_ButtonClick">
+                    <Border CornerRadius="20" Width="150" Height="140" Margin="0 0 0 0" Background="#6055ed" HorizontalAlignment="Left">
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <Image Source="/Image/employee.png" Width="40" Height="40" Margin="0 0 0 0"/>
+                            <TextBlock Text="Мед персонал" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource TextBlockInfo}"
+                                        FontSize="20" Foreground="Black"/>
+                        </StackPanel>
                     </Border>
+                </Button>
 
-                    <Border CornerRadius="20" Width="150" Height="150" Margin="20 0 0 0" Background="#5ae675"
+                <Border CornerRadius="20" Width="150" Height="140" Margin="20 0 0 0" Background="#5ae675"
                   HorizontalAlignment="Left">
                     </Border>
 

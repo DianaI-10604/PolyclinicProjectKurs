@@ -102,24 +102,35 @@ namespace PolyclinicProjectKurs
                 // Преобразуем дату в DateTime, устанавливая время на начало дня
                 var date = selectedDate.ToDateTime(TimeOnly.MinValue);
 
-                // Получаем все записи на выбранную дату
+                // Получаем все записи на выбранную дату из таблицы Appointments
                 var appointments = context.Appointments
                     .Where(a => a.DoctorId == _doctor.DoctorId && a.Appointmenttime == selectedDate)
                     .Select(a => a.AppointmentTime1)
-                    .ToList(); // Выполняем запрос и загружаем данные в память
+                    .ToList();
 
-                // Преобразуем TimeOnly в DateTime и возвращаем список занятых слотов
+                // Получаем все записи на выбранную дату из таблицы DoctorAppointmentsWithoutAuthorization
+                var appointmentsWithoutAuth = context.DoctorAppointmentsWithoutAuthorization
+                    .Where(a => a.DoctorId == _doctor.DoctorId && a.AppointmentDate == selectedDate)
+                    .Select(a => a.AppointmentTime)
+                    .ToList();
+
+                // Преобразуем TimeOnly в DateTime и объединяем списки занятых слотов
                 var occupiedSlots = appointments
-                    .Where(timeOnly => timeOnly.HasValue) // Фильтруем только имеющие значение
+                    .Where(timeOnly => timeOnly.HasValue)
                     .Select(timeOnly => date.Date.Add(new TimeSpan(timeOnly.Value.Hour, timeOnly.Value.Minute, 0)))
                     .ToList();
+
+                occupiedSlots.AddRange(appointmentsWithoutAuth
+                    .Select(timeOnly => date.Date.Add(new TimeSpan(timeOnly.Hour, timeOnly.Minute, 0)))
+                    .ToList());
 
                 return occupiedSlots;
             }
         }
 
 
-        private void ChooseHour_ButtonClick(object sender, RoutedEventArgs e)
+
+        private async void ChooseHour_ButtonClick(object sender, RoutedEventArgs e)
         {
             Button selectedButton = (Button)sender;
             DateTime selectedTime = (DateTime)selectedButton.DataContext;
@@ -135,7 +146,6 @@ namespace PolyclinicProjectKurs
                 // Запись в базу данных
                 using (var context = new PolycCursContext())
                 {
-                    //если пользователь не авторизован то 
                     if (_user == null)
                     {
                         FillUserDataPage fillUserDataPage = new FillUserDataPage();
@@ -158,13 +168,10 @@ namespace PolyclinicProjectKurs
                             context.SaveChanges();
 
                             var emailService = new EmailService();
-                            emailService.SendEmail(fillUserDataPage.Email, appointmentWithoutAuth);
+                            await emailService.SendEmailAsync(fillUserDataPage.Email, appointmentWithoutAuth, null, _doctor);
 
                             MessageBox.Show("Запись успешно добавлена и отправлена на ваш email.");
                         }
-                        //тут нужно открывать поверх окно с вводом данных: почта, куда отправлять талон, ФИО
-                        //а потом уже сохранять данные в отдельную таблицу CallDoctorWithoutAuth
-
                     }
                     else
                     {
@@ -181,27 +188,25 @@ namespace PolyclinicProjectKurs
                         context.SaveChanges();
 
                         var emailService = new EmailService();
-                        emailService.SendEmail(_user.Useremail, appointment);
+                        await emailService.SendEmailAsync(_user.Useremail, appointment, _user, _doctor);
+
+                        MessageBox.Show("Запись успешно добавлена и отправлена на ваш email.");
                     }
                 }
 
-                MessageBox.Show("Запись успешно добавлена.");
-
+                // Переход на другую страницу после успешной записи
                 MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
-                mainWindow.ContentControlPage.Content = new MainMenu(_user); // замените на Profile, если необходимо
-
+                mainWindow.ContentControlPage.Content = new MainMenu(_user); // Замените на Profile, если необходимо
                 mainWindow.CloseSideMenu();
             }
             else
             {
                 MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
-                mainWindow.ContentControlPage.Content = new DoctorAppointment(_user); // замените на Profile, если необходимо
-
+                mainWindow.ContentControlPage.Content = new DoctorAppointment(_user); // Замените на Profile, если необходимо
                 mainWindow.CloseSideMenu();
-                // Вернуться в окно выбора врача
-                // Реализуйте логику возврата, если необходимо
             }
         }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)

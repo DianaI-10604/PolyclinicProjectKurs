@@ -13,7 +13,7 @@
                 <RowDefinition Height="6*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Записи о посещениях пациентов" FontSize="30" Foreground="#18bc84" FontWeight="Bold" Margin="10" Grid.Row="0"/>
+            <TextBlock Text="Записи о посещениях пациентов" FontSize="25" Foreground="#18bc84" FontWeight="Bold" Margin="10" Grid.Row="0"/>
 
             <ListBox Grid.Row="1" Margin="20" BorderThickness="2" BorderBrush="White" Background="Transparent" 
                      ItemsSource="{Binding DoctorAppointmentsCollection}">
@@ -39,8 +39,15 @@
                                 <TextBlock Text="{Binding Medicalrecords[0].Diagnosis}" Foreground="#18bc84"/>
                             </StackPanel>
 
+                            <!-- Добавляем поле Жалобы -->
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Жалобы: " Foreground="White"/>
+                                <TextBlock Text="{Binding Medicalrecords[0].Complaints}" Foreground="#18bc84"/>
+                            </StackPanel>
+
                             <Button Content="Изменить диагноз" Background="#18bc84" Foreground="White" FontWeight="Bold"
-                                    Click="ChangeDiagnosisButton_Click"/>
+                                    Click="ChangeDiagnosisButton_Click" Margin="0 5 0 0"/>
+                            <Separator Background="Transparent" Height="10"/>
                         </WrapPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

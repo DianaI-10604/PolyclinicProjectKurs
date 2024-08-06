@@ -1,18 +1,11 @@
-﻿using PolyclinicProjectKurs.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using PolyclinicProjectKurs.Context;
+using PolyclinicProjectKurs.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PolyclinicProjectKurs
 {
@@ -21,6 +14,7 @@ namespace PolyclinicProjectKurs
     /// </summary>
     public partial class CancelAppointmentPage : UserControl
     {
+        private User user = null;
         public CancelAppointmentPage()
         {
             InitializeComponent();
@@ -32,38 +26,111 @@ namespace PolyclinicProjectKurs
             string firstName = FirstNameTextBox.Text;
             string patronymic = PatronymicTextBox.Text;
             string phone = PhoneTextBox.Text;
+            DateTime selectedDate = AppointmentDatePicker.SelectedDate.HasValue ? AppointmentDatePicker.SelectedDate.Value : DateTime.MinValue;
 
             using (var context = new PolycCursContext())
             {
-                var appointment = context.DoctorAppointmentsWithoutAuthorization
-                    .FirstOrDefault(a => a.LastName == lastName && a.FirstName == firstName && a.Patronymic == patronymic && a.Phone == phone);
+                // Очистка списка записей
+                AppointmentsListBox.Items.Clear();
 
-                if (appointment != null)
+                // Поиск записей без авторизации
+                var appointmentsWithoutAuth = context.DoctorAppointmentsWithoutAuthorization
+                    .Include(a => a.Doctor)
+                    .Where(a => a.LastName == lastName && a.FirstName == firstName && a.Patronymic == patronymic && a.Phone == phone && a.AppointmentDate == DateOnly.FromDateTime(selectedDate))
+                    .ToList();
+
+                if (appointmentsWithoutAuth.Count > 0)
                 {
-                    var doctor = context.Doctors.FirstOrDefault(d => d.DoctorId == appointment.DoctorId);
-                    if (doctor != null)
+                    foreach (var appointment in appointmentsWithoutAuth)
                     {
-                        string appointmentInfo = $"Дата записи: {appointment.AppointmentDate.ToShortDateString()}\n" +
-                                                 $"Имя врача: {doctor.Doctorname} \n" +
-                                                 $"Время приема: {appointment.AppointmentTime}\n" +
-                                                 "Отменить запись?";
-
-                        MessageBoxResult result = MessageBox.Show(appointmentInfo, "Подтверждение отмены", MessageBoxButton.YesNo);
-
-                        if (result == MessageBoxResult.Yes)
+                        string appointmentInfo = $"Дата записи: {appointment.AppointmentDate}\n" +
+                                                 $"Имя врача: {appointment.Doctor.Doctorname}\n" +
+                                                 $"Время приема: {appointment.AppointmentTime}\n";
+                        ListBoxItem item = new ListBoxItem
                         {
-                            context.DoctorAppointmentsWithoutAuthorization.Remove(appointment);
-                            context.SaveChanges();
-                            MessageBox.Show("Запись успешно отменена.");
-
-                            MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
-                            mainWindow.ContentControlPage.Content = new ServicesWithoutAuth();
-                        }
+                            Content = appointmentInfo,
+                            Tag = appointment
+                        };
+                        item.MouseDoubleClick += CancelAppointmentWithoutAuth;
+                        AppointmentsListBox.Items.Add(item);
                     }
                 }
-                else
+
+                // Поиск пользователя в таблице Users
+                 user = context.Users
+                    .FirstOrDefault(u => u.Usersurname == lastName &&
+                                         u.Username == firstName &&
+                                         u.Userpatronymicname == patronymic &&
+                                         u.Userphone == phone);
+
+                if (user != null)
                 {
-                    MessageBox.Show("Запись не найдена.");
+                    // Поиск всех записей в Appointments по UserId и указанной дате
+                    var appointmentsWithAuth = context.Appointments
+                        .Include(a => a.Doctor)  // Включаем связанного доктора
+                        .Where(a => a.UserId == user.UserId && a.Appointmenttime == DateOnly.FromDateTime(selectedDate))
+                        .ToList();
+
+                    foreach (var appointment in appointmentsWithAuth)
+                    {
+                        string appointmentInfo = $"Дата записи: {appointment.Appointmenttime}\n" +
+                                                 $"Имя врача: {appointment.Doctor.Doctorname}\n" +
+                                                 $"Время приема: {appointment.AppointmentTime1}\n";
+                        ListBoxItem item = new ListBoxItem
+                        {
+                            Content = appointmentInfo,
+                            Tag = appointment
+                        };
+                        item.MouseDoubleClick += CancelAppointmentWithAuth;
+                        AppointmentsListBox.Items.Add(item);
+                    }
+                }
+
+                if (AppointmentsListBox.Items.Count == 0)
+                {
+                    MessageBox.Show("Записи не найдены.");
+                }
+            }
+        }
+
+        private void CancelAppointmentWithoutAuth(object sender, MouseButtonEventArgs e)
+        {
+            ListBoxItem item = sender as ListBoxItem;
+            var appointment = item.Tag as DoctorAppointmentWithoutAuthorization;
+
+            MessageBoxResult result = MessageBox.Show($"Вы уверены, что хотите отменить запись на {appointment.AppointmentDate} к {appointment.Doctor.Doctorname}?", "Подтверждение отмены", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                using (var context = new PolycCursContext())
+                {
+                    context.DoctorAppointmentsWithoutAuthorization.Remove(appointment);
+                    context.SaveChanges();
+                    AppointmentsListBox.Items.Remove(item);
+                    MessageBox.Show("Запись успешно отменена.");
+
+                    MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
+                    mainWindow.ContentControlPage.Content = new ServicesWithoutAuth();
+                }
+            }
+        }
+
+        private void CancelAppointmentWithAuth(object sender, MouseButtonEventArgs e)
+        {
+            ListBoxItem item = sender as ListBoxItem;
+            var appointment = item.Tag as Appointment;
+
+            MessageBoxResult result = MessageBox.Show($"Вы уверены, что хотите отменить запись на {appointment.Appointmenttime} к {appointment.Doctor.Doctorname}?", "Подтверждение отмены", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                using (var context = new PolycCursContext())
+                {
+                    context.Appointments.Remove(appointment);
+                    context.SaveChanges();
+                    AppointmentsListBox.Items.Remove(item);
+                    MessageBox.Show("Запись успешно отменена.");
+
+                    MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
+                    mainWindow.ContentControlPage.Content = new DoctorAppointment(user);
                 }
             }
         }

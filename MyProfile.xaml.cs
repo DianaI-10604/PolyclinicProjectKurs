@@ -78,5 +78,46 @@ namespace PolyclinicProjectKurs
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private void ChangePassword_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            // Получаем введенные значения паролей
+            string currentPassword = CurrentPassword.Password;
+            string newPassword = NewPassword.Password;
+            string repeatPassword = RepeatPassword.Password;
+
+            if (string.IsNullOrEmpty(currentPassword) || string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(repeatPassword))
+            {
+                MessageBox.Show("Все поля пароля должны быть заполнены.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (newPassword != repeatPassword)
+            {
+                MessageBox.Show("Новый пароль и его повтор не совпадают.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            using (var db = new PolycCursContext())
+            {
+                // Проверяем текущий пароль
+                var user = db.Users.FirstOrDefault(u => u.UserId == _user.UserId);
+                if (user == null || user.Userpassword != currentPassword)
+                {
+                    MessageBox.Show("Неверный текущий пароль.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                // Обновляем пароль
+                user.Userpassword = newPassword;
+                db.SaveChanges();
+
+                MessageBox.Show("Пароль успешно изменен.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                CurrentPassword.Clear();
+                NewPassword.Clear();
+                RepeatPassword.Clear();
+            }
+        }
+
     }
 }

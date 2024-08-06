@@ -12,6 +12,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="9*"/>
+                <RowDefinition Height="1.5*"/>
             </Grid.RowDefinitions>
 
             <TextBlock Text="Выбор даты для записи" Style="{StaticResource TextBlockInfo}" Grid.Row="0" FontSize="20"/>
@@ -32,6 +33,9 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+
+            <Button Content="Назад" Grid.Row="3" FontSize="18" Width="110" Foreground="White" FontWeight="ExtraBold" Background="Transparent" BorderBrush="Transparent"
+         HorizontalAlignment="Left" Click="Back_ButtonClick"/>
         </Grid>
     </Border>
 </UserControl>

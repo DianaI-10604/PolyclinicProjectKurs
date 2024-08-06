@@ -9,18 +9,31 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Fonts\TimesNewRomanRegular.ttf" />
     <None Remove="Image\call.png" />
     <None Remove="Image\doctor_icon.png" />
+    <None Remove="Image\employee.png" />
     <None Remove="Image\health.png" />
+    <None Remove="Image\icon_contact_black.png" />
+    <None Remove="Image\map_address.jpg" />
     <None Remove="Image\menuwhite.png" />
     <None Remove="Image\notebookGreen.png" />
     <None Remove="Image\noteCancel.png" />
     <None Remove="Image\out.png" />
     <None Remove="Image\pencil.png" />
+    <None Remove="Image\po33fasad.jpg" />
     <None Remove="Image\power_off.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Fonts\TimesNewRomanRegular.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="iTextSharp" Version="5.5.13.4" />
+    <PackageReference Include="MailKit" Version="4.7.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
       <PrivateAssets>all</PrivateAssets>
@@ -31,18 +44,23 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="NETCore.MailKit" Version="2.1.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Image\call.png" />
     <Resource Include="Image\doctor_icon.png" />
+    <Resource Include="Image\employee.png" />
     <Resource Include="Image\health.png" />
+    <Resource Include="Image\icon_contact_black.png" />
+    <Resource Include="Image\map_address.jpg" />
     <Resource Include="Image\menuwhite.png" />
     <Resource Include="Image\notebookGreen.png" />
     <Resource Include="Image\noteCancel.png" />
     <Resource Include="Image\out.png" />
     <Resource Include="Image\pencil.png" />
+    <Resource Include="Image\po33fasad.jpg" />
     <Resource Include="Image\power_off.png" />
   </ItemGroup>
 

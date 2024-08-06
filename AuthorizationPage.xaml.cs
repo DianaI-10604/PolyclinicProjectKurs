@@ -64,7 +64,7 @@ namespace PolyclinicProjectKurs
                 }
                 else
                 {
-                    MessageBox.Show("Неверные данные для авторизации!");
+                    MessageBox.Show("Неверные данные для авторизации!", "Успех", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -72,6 +72,13 @@ namespace PolyclinicProjectKurs
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             Environment.Exit(0);
+        }
+
+        private void ResetPassword_Click(object sender, RoutedEventArgs e)
+        {
+            ForgotPasswordPage page = new ForgotPasswordPage();
+            page.Show();
+            this.Close();
         }
     }
 }

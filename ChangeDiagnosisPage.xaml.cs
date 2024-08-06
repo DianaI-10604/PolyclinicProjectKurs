@@ -1,29 +1,13 @@
 ﻿using PolyclinicProjectKurs.Context;
 using PolyclinicProjectKurs.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PolyclinicProjectKurs
 {
-    /// <summary>
-    /// Логика взаимодействия для ChangeDiagnosisPage.xaml
-    /// </summary>
     public partial class ChangeDiagnosisPage : Window
     {
         private readonly Medicalrecord _medicalRecord;
         public Medicalrecord UpdatedMedicalRecord { get; private set; }
-
 
         public ChangeDiagnosisPage()
         {
@@ -35,29 +19,32 @@ namespace PolyclinicProjectKurs
             InitializeComponent();
             _medicalRecord = medicalRecord;
             DiagnosisTextBox.Text = _medicalRecord.Diagnosis;
+            ComplaintsTextBox.Text = _medicalRecord.Complaints; // Установите текущее значение жалоб
         }
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            // Получить новый диагноз из TextBox
+            // Получить новый диагноз и жалобы из TextBox
             string newDiagnosis = DiagnosisTextBox.Text;
+            string newComplaints = ComplaintsTextBox.Text;
 
-            if (!string.IsNullOrWhiteSpace(newDiagnosis))
+            if (!string.IsNullOrWhiteSpace(newDiagnosis) && !string.IsNullOrWhiteSpace(newComplaints))
             {
-                // Обновить диагноз в базе данных
+                // Обновить диагноз и жалобы в базе данных
                 using (var context = new PolycCursContext())
                 {
                     var record = context.Medicalrecords.FirstOrDefault(m => m.Id == _medicalRecord.Id);
                     if (record != null)
                     {
                         record.Diagnosis = newDiagnosis;
+                        record.Complaints = newComplaints;
                         context.SaveChanges();
-                        MessageBox.Show("Диагноз успешно обновлен.");
+                        MessageBox.Show("Данные успешно обновлены.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                         UpdatedMedicalRecord = record; // Обновление свойства
                     }
                     else
                     {
-                        MessageBox.Show("Не удалось найти запись в базе данных.");
+                        MessageBox.Show("Не удалось найти запись в базе данных.", "Успех", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
 
@@ -67,7 +54,7 @@ namespace PolyclinicProjectKurs
             }
             else
             {
-                MessageBox.Show("Введите диагноз перед подтверждением.");
+                MessageBox.Show("Введите диагноз и жалобы перед подтверждением.");
             }
         }
     }

@@ -39,7 +39,7 @@ namespace PolyclinicProjectKurs
                     {
                         if (dbContext.Users.Any(user => user.Useremail == emailtext.Text)) //проверяем существует ли введенный email
                         {
-                            MessageBox.Show("Пользователь c указанным email уже существует!");
+                            MessageBox.Show("Пользователь c указанным email уже существует!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                             emailtext.Text = null;
                         }
                         else
@@ -69,7 +69,7 @@ namespace PolyclinicProjectKurs
                             dbContext.Users.Add(newUser);
                             dbContext.SaveChanges(); // Сохранение изменений в базе данных
 
-                            MessageBox.Show("Пользователь успешно зарегистрирован!");
+                            MessageBox.Show("Пользователь успешно зарегистрирован!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                             UserAuth.UserAuthorized = true;
 
                             MainWindow w = new MainWindow(newUser, null);
@@ -81,14 +81,14 @@ namespace PolyclinicProjectKurs
 
                 else
                 {
-                    MessageBox.Show("Пароли не совпадают!");
+                    MessageBox.Show("Пароли не совпадают!", "Успех", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
 
             //Какое-то из полей пустое
             else
             {
-                MessageBox.Show("Не все поля заполнены");
+                MessageBox.Show("Не все поля заполнены", "Внимание", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

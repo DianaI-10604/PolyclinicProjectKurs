@@ -92,6 +92,7 @@ namespace PolyclinicProjectKurs
                         if (record != null)
                         {
                             record.Diagnosis = changeDiagnosisPage.UpdatedMedicalRecord.Diagnosis;
+                            record.Complaints = changeDiagnosisPage.UpdatedMedicalRecord.Complaints;
                             context.SaveChanges();
 
                             // Обновить коллекцию и UI
@@ -113,6 +114,7 @@ namespace PolyclinicProjectKurs
             if (record != null)
             {
                 record.Diagnosis = updatedRecord.Diagnosis;
+                record.Complaints = updatedRecord.Complaints;
                 // Уведомление об изменениях
                 var index = DoctorAppointmentsCollection.IndexOf(appointment);
                 DoctorAppointmentsCollection[index] = null; // Чтобы DataGrid обновил привязку

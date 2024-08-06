@@ -115,7 +115,7 @@ namespace PolyclinicProjectKurs
         {
             if (!UserAuth.UserAuthorized)
             {
-                MessageBox.Show("Вы не авторизованы");
+                MessageBox.Show("Вы не авторизованы", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
@@ -194,7 +194,7 @@ namespace PolyclinicProjectKurs
         {
             if (!UserAuth.UserAuthorized)
             {
-                MessageBox.Show("Вы не авторизованы");
+                MessageBox.Show("Вы не авторизованы", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
@@ -215,7 +215,7 @@ namespace PolyclinicProjectKurs
         {
             if (!UserAuth.UserAuthorized)
             {
-                MessageBox.Show("Вы не авторизованы");
+                MessageBox.Show("Вы не авторизованы", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
@@ -229,7 +229,7 @@ namespace PolyclinicProjectKurs
         {
             if (!UserAuth.UserAuthorized)
             {
-                MessageBox.Show("Вы не авторизованы");
+                MessageBox.Show("Вы не авторизованы", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {

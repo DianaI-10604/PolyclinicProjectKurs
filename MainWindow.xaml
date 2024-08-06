@@ -28,15 +28,16 @@
 
                 <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
 
-                    <StackPanel Orientation="Horizontal">
+                    <!--<StackPanel Orientation="Horizontal">
                         <Image Source="/Image/call.png" Margin="10"/>
                         <TextBlock Text="241-33-53" Style="{StaticResource TextBlockInfo}"
                                 VerticalAlignment="Center" FontSize="15"/>
-                    </StackPanel>
+                    </StackPanel>-->
 
                     <TextBlock Grid.Row="0" Grid.Column="1"
                             VerticalAlignment="Center"
-                             Style="{StaticResource TextBlockInfo}" Margin="70 0 0 0"
+                               HorizontalAlignment="Center"
+                             Style="{StaticResource TextBlockInfo}" Margin="0 0 0 0"
                              FontSize="20">
                      Поликлиника №33 yл. Оскаленко, 18
                     </TextBlock>

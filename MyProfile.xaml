@@ -8,14 +8,22 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Border Background="#18181f">
             <Grid ShowGridLines="False">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="7*"/>
-                </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
 
-
+            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                <TextBlock Text="{Binding Usersurname}" Style="{StaticResource TextBlockInfo}" Margin="10 0 0 0"
+            FontSize="25" HorizontalAlignment="Left" Foreground="#18bc84" FontWeight="ExtraBold"/>
+                
                 <TextBlock Text="{Binding Username}" Style="{StaticResource TextBlockInfo}" Margin="10 0 0 0"
-                    FontSize="25" HorizontalAlignment="Left" Foreground="#18bc84" FontWeight="ExtraBold"/>
+                           FontSize="25" HorizontalAlignment="Left" Foreground="#18bc84" FontWeight="ExtraBold"/>
+
+                <TextBlock Text="{Binding Userpatronymicname}" Style="{StaticResource TextBlockInfo}" Margin="10 0 0 0"
+                           FontSize="25" HorizontalAlignment="Left" Foreground="#18bc84" FontWeight="ExtraBold"/>
+            </StackPanel>
+            
 
                 <Grid ShowGridLines="False" Grid.Row="1">
                     <Grid.ColumnDefinitions>
@@ -72,21 +80,24 @@
                     <Grid Grid.Row="1" Grid.Column="1" ShowGridLines="False">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="2*"/>
-                            <RowDefinition Height="*"/>
+                            <!--<RowDefinition Height="*"/>-->
                         </Grid.RowDefinitions>
 
 
                         <StackPanel Grid.Column="0" Orientation="Vertical">
                             <TextBlock Text="Изменение пароля"  Style="{StaticResource TextBlockInfo}" FontSize="20" Margin="0 10 0 0"/>
 
+                            <TextBlock Text="Текущий пароль" FontSize="15" Margin="20 20 0 0"  HorizontalAlignment="Left" Style="{StaticResource TextBlockInfo}"/>
+                            <PasswordBox Margin="20 0 20 0" x:Name="CurrentPassword"/>
+                            
                             <TextBlock Text="Введите новый пароль" FontSize="15" Margin="20 20 0 0"  HorizontalAlignment="Left" Style="{StaticResource TextBlockInfo}"/>
                             <PasswordBox Margin="20 0 20 0" x:Name="NewPassword"/>
 
                             <TextBlock Text="Повторите пароль" FontSize="15" Margin="20 20 0 0"  HorizontalAlignment="Left" Style="{StaticResource TextBlockInfo}"/>
                             <PasswordBox Margin="20 0 20 0" x:Name="RepeatPassword"/>
 
-                            <Button Content="Применить" 
-                             Background="#18bc84" Foreground="White" Margin="20 30 20 20" Height="30" FontWeight="Bold"/>
+                            <Button Content="Применить" Click="ChangePassword_ButtonClick"
+                                Background="#18bc84" Foreground="White" Margin="20 30 20 20" Height="30" FontWeight="Bold"/>
                         </StackPanel>
 
                     </Grid>
