@@ -45,6 +45,11 @@
                                 <TextBlock Text="{Binding Medicalrecords[0].Complaints}" Foreground="#18bc84"/>
                             </StackPanel>
 
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Схема лечения: " Foreground="White"/>
+                                <TextBlock Text="{Binding Medicalrecords[0].TreatmentRegimen}" Foreground="#18bc84"/>
+                            </StackPanel>
+
                             <Button Content="Изменить диагноз" Background="#18bc84" Foreground="White" FontWeight="Bold"
                                     Click="ChangeDiagnosisButton_Click" Margin="0 5 0 0"/>
                             <Separator Background="Transparent" Height="10"/>

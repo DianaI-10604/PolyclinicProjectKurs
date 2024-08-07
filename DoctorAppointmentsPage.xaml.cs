@@ -52,24 +52,33 @@ namespace PolyclinicProjectKurs
                     .Where(a => a.DoctorId == _doctor.DoctorId && a.AppointmentStatus == "Завершенные")
                     .ToList();
 
-                // Для каждой записи загружаем соответствующую медицинскую запись
-                foreach (var appointment in appointmentList)
+                if (appointmentList.Count == 0)
                 {
-                    var medicalRecord = context.Medicalrecords
-                        .FirstOrDefault(m => m.AppointmentId == appointment.Id && m.DoctorId == _doctor.DoctorId);
-
-                    if (medicalRecord != null)
-                    {
-                        appointment.Medicalrecords = new List<Medicalrecord> { medicalRecord };
-                    }
-                    else
-                    {
-                        appointment.Medicalrecords = new List<Medicalrecord>();
-                    }
+                    MessageBox.Show("Нет доступных посещений для отображения", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
-                // Создаем коллекцию для отображения
-                DoctorAppointmentsCollection = new ObservableCollection<Appointment>(appointmentList);
+                else
+                {
+                    // Для каждой записи загружаем соответствующую медицинскую запись
+                    foreach (var appointment in appointmentList)
+                    {
+                        var medicalRecord = context.Medicalrecords
+                            .FirstOrDefault(m => m.AppointmentId == appointment.Id && m.DoctorId == _doctor.DoctorId);
+
+                        if (medicalRecord != null)
+                        {
+                            appointment.Medicalrecords = new List<Medicalrecord> { medicalRecord };
+                        }
+                        else
+                        {
+                            appointment.Medicalrecords = new List<Medicalrecord>();
+                        }
+                    }
+
+                    // Создаем коллекцию для отображения
+                    DoctorAppointmentsCollection = new ObservableCollection<Appointment>(appointmentList);
+                }
+               
             }
         }
 
@@ -93,6 +102,7 @@ namespace PolyclinicProjectKurs
                         {
                             record.Diagnosis = changeDiagnosisPage.UpdatedMedicalRecord.Diagnosis;
                             record.Complaints = changeDiagnosisPage.UpdatedMedicalRecord.Complaints;
+                            record.TreatmentRegimen = changeDiagnosisPage.UpdatedMedicalRecord.TreatmentRegimen;
                             context.SaveChanges();
 
                             // Обновить коллекцию и UI
@@ -115,6 +125,7 @@ namespace PolyclinicProjectKurs
             {
                 record.Diagnosis = updatedRecord.Diagnosis;
                 record.Complaints = updatedRecord.Complaints;
+                record.TreatmentRegimen = updatedRecord.TreatmentRegimen;
                 // Уведомление об изменениях
                 var index = DoctorAppointmentsCollection.IndexOf(appointment);
                 DoctorAppointmentsCollection[index] = null; // Чтобы DataGrid обновил привязку

@@ -62,6 +62,11 @@
 
                 <StackPanel Orientation="Vertical" Grid.Row="1" Margin="10" Grid.Column="0" Name="doctorPanel">
                     <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding DoctorName}" Style="{StaticResource TextBlockInfo}" FontSize="24" 
+                                   FontWeight="ExtraBold" Foreground="#18bc84" Margin="0 0 0 20"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock Text="E-mail: " Style="{StaticResource TextBlockInfo}" FontSize="18" Margin=" 0 0 0 10" FontWeight="ExtraBold"/>
                         <TextBlock Text="{Binding Useremail}" Style="{StaticResource TextBlockInfo}" FontSize="18" FontStyle="Italic" FontWeight="Light"/>
                     </StackPanel>

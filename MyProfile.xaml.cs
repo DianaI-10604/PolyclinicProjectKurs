@@ -27,8 +27,6 @@ namespace PolyclinicProjectKurs
         private User _user;
         private DoctorAccount _account;
 
- 
-
         public MyProfile()
         {
             InitializeComponent();
@@ -58,6 +56,7 @@ namespace PolyclinicProjectKurs
                         // Создаем объект, который будет использоваться для привязки данных
                         var doctorContext = new
                         {
+                            DoctorName = doctor.Doctorname,
                             Useremail = _account.Useremail,
                             Phone = _account.Phone,
                             Speciality = doctor.Speciality

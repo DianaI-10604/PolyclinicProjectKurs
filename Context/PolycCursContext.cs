@@ -174,8 +174,11 @@ public partial class PolycCursContext : DbContext
             entity.Property(e => e.Diagnosis)
                 .HasColumnType("character varying")
                 .HasColumnName("diagnosis");
-            entity.Property(e => e.Complaints)
+            entity.Property(e => e.TreatmentRegimen)
                 .HasColumnType("character varying")
+                .HasColumnName("treatment_regimen");
+            entity.Property(e => e.Complaints)
+                .HasColumnType("character varying") 
                 .HasColumnName("complaints");
             entity.Property(e => e.DoctorId).HasColumnName("doctor_id");
             entity.Property(e => e.UserId).HasColumnName("user_id");

@@ -20,6 +20,7 @@ namespace PolyclinicProjectKurs
             _medicalRecord = medicalRecord;
             DiagnosisTextBox.Text = _medicalRecord.Diagnosis;
             ComplaintsTextBox.Text = _medicalRecord.Complaints; // Установите текущее значение жалоб
+            RegimenTextBox.Text = _medicalRecord.TreatmentRegimen;
         }
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
@@ -27,8 +28,9 @@ namespace PolyclinicProjectKurs
             // Получить новый диагноз и жалобы из TextBox
             string newDiagnosis = DiagnosisTextBox.Text;
             string newComplaints = ComplaintsTextBox.Text;
+            string newRegimen = RegimenTextBox.Text;
 
-            if (!string.IsNullOrWhiteSpace(newDiagnosis) && !string.IsNullOrWhiteSpace(newComplaints))
+            if (!string.IsNullOrWhiteSpace(newDiagnosis) && !string.IsNullOrWhiteSpace(newComplaints) && !string.IsNullOrWhiteSpace(newRegimen))
             {
                 // Обновить диагноз и жалобы в базе данных
                 using (var context = new PolycCursContext())
@@ -38,6 +40,7 @@ namespace PolyclinicProjectKurs
                     {
                         record.Diagnosis = newDiagnosis;
                         record.Complaints = newComplaints;
+                        record.TreatmentRegimen = newRegimen;
                         context.SaveChanges();
                         MessageBox.Show("Данные успешно обновлены.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                         UpdatedMedicalRecord = record; // Обновление свойства

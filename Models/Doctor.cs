@@ -27,5 +27,5 @@ public partial class Doctor
 
     public virtual ICollection<DoctorAppointmentDates> DoctorAppointmentDates { get; set; }
     public ICollection<DoctorAccount> DoctorAccounts { get; set; }
-    public ICollection<DoctorAppointmentWithoutAuthorization> AppointmentsWithoutAuthorization { get; set; } // Добавленное навигационное свойство
+    public ICollection<DoctorAppointmentWithoutAuthorization> AppointmentsWithoutAuthorization { get; set; }
 }

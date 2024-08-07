@@ -63,6 +63,7 @@ namespace PolyclinicProjectKurs
                                 Birthdate = DateOnly.FromDateTime(datetext.SelectedDate.GetValueOrDefault()),
                                 Snils = snilstext.Text,
                                 Userphone = phonetext.Text,
+                                Status = "patient",
                                 Userpassword = passwordtext.Password,
                             };
 

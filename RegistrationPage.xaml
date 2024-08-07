@@ -11,7 +11,7 @@
         WindowStartupLocation="CenterScreen"
         Title="RegistrationPage" Height="500" Width="800">
     <Border CornerRadius="10" Background="#18181f">
-        <Grid ShowGridLines="True">
+        <Grid ShowGridLines="False">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1.5*"/>
                 <RowDefinition Height="10*"/>

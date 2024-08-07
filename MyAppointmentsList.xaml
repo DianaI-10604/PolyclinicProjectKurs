@@ -11,7 +11,7 @@
     </UserControl.Resources>
 
     <Border Background="#18181f">
-        <Grid ShowGridLines="True">
+        <Grid ShowGridLines="False">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>

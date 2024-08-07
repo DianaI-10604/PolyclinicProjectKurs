@@ -32,20 +32,31 @@
 
                             <Border Background="#18bc84" CornerRadius="5" Width="670">
                                 <StackPanel Orientation="Vertical">
-                                    <StackPanel Orientation="Horizontal">
+                                    <WrapPanel Orientation="Horizontal">
                                         <TextBlock Text="Доктор: " Style="{StaticResource TextBlockInfo}"/>
                                         <TextBlock Text="{Binding Doctor.Doctorname}" Style="{StaticResource TextBlockInfo}"/>
-                                    </StackPanel>
+                                    </WrapPanel>
 
-                                    <StackPanel Orientation="Horizontal">
+                                    <WrapPanel Orientation="Horizontal">
+                                        <TextBlock Text="Специальность: " Style="{StaticResource TextBlockInfo}"/>
+                                        <TextBlock Text="{Binding Doctor.Speciality}" Style="{StaticResource TextBlockInfo}"/>
+                                    </WrapPanel>
+
+
+                                    <WrapPanel Orientation="Horizontal">
                                         <TextBlock Text="Жалобы: " Style="{StaticResource TextBlockInfo}"/>
                                         <TextBlock Text="{Binding Complaints}" Style="{StaticResource TextBlockInfo}"/>
-                                    </StackPanel>
+                                    </WrapPanel>
 
-                                    <StackPanel Orientation="Horizontal">
+                                    <WrapPanel Orientation="Horizontal">
                                         <TextBlock Text="Диагноз: " Style="{StaticResource TextBlockInfo}"/>
                                         <TextBlock Text="{Binding Diagnosis}" Style="{StaticResource TextBlockInfo}"/>
-                                    </StackPanel>
+                                    </WrapPanel>
+
+                                    <WrapPanel Orientation="Horizontal">
+                                        <TextBlock Text="Схема лечения: " Style="{StaticResource TextBlockInfo}"/>
+                                        <TextBlock Text="{Binding TreatmentRegimen}" Style="{StaticResource TextBlockInfo}"/>
+                                    </WrapPanel>
                                 </StackPanel>
                             </Border>
                         </WrapPanel>

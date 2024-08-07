@@ -257,5 +257,17 @@ namespace PolyclinicProjectKurs
 
             CloseSideMenu();
         }
+
+        private void ShowContacts_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            ContentControlPage.Content = new Contacts();
+            CloseSideMenu();
+        }
+
+        private void MedEmployees_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            ContentControlPage.Content = new DoctorsListInfo(_user);
+            CloseSideMenu();
+        }
     }
 }
